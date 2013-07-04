@@ -113,9 +113,8 @@ class LwgeomAlgorithm(GeoAlgorithm):
             idx = 0
 
             # no features selected on the layer, process all the features
-            inputLayer.select( inputLayer.pendingAllAttributesList(), QgsRectangle(), True )
-            feat = QgsFeature()
-            while inputLayer.nextFeature( feat ):
+            features = inputLayer.getFeatures()
+            for feat in features:
                 # run lwgeom algorithm on the feature geometry
                 if not self.runLwgeom( feat.geometry(), lib=liblwgeom ):
                     SextanteLog.addToLog( SextanteLog.LOG_ERROR, u"FAILURE: previous failure info: layer %s, feature #%s" % (inputLayer.source(), feat.id()) )
