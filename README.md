@@ -3,7 +3,7 @@ sextantelwgeomprovider
 
 Expose liblwgeom functions to QGIS SEXTANTE
 
-!!!Plugin DOES'T work with postgis 2.0.* installations!!!
+!!!Plugin DOESN'T work with postgis 2.0.* installations!!!
 
 Plugin works ONLY with liblwgeom trunk version due to [1].
 
