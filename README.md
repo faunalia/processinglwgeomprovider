@@ -1,7 +1,6 @@
 processinglwgeomprovider
 ========================
 
-<<<<<<< HEAD
 Expose liblwgeom functions to QGIS Processing
 =======
 Expose liblwgeom functions to QGIS Processing
