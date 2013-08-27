@@ -44,8 +44,8 @@ changelog=0.3
 tags=processing, liblwgeom
 
 homepage=http://www.faunalia.com/
-tracker=http://hub.qgis.org/projects/sextantelwgeomprovider
-repository=https://github.com/faunalia/sextantelwgeomprovider
+tracker=http://hub.qgis.org/projects/processinglwgeomprovider
+repository=https://github.com/faunalia/processinglwgeomprovider
 
 ; path to a icon within the plugin folder
 icon=logo.png

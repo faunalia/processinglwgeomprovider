@@ -4,7 +4,7 @@ processinglwgeomprovider
 <<<<<<< HEAD
 Expose liblwgeom functions to QGIS Processing
 =======
-Expose liblwgeom functions to QGIS SEXTANTE
+Expose liblwgeom functions to QGIS Processing
 
 !!!Plugin DOESN'T work with postgis 2.0.* installations!!!
 
