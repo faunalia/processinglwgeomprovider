@@ -22,10 +22,10 @@ __copyright__ = '(C) 2012, Giuseppe Sucameli'
 # This will get replaced with a git SHA1 when you do a git archive
 __revision__ = '$Format:%H$'
 
-from sextante.core.AlgorithmProvider import AlgorithmProvider
-from sextantelwgeomprovider.LwgeomAlgorithm import makeValid
-from sextantelwgeomprovider.LwgeomAlgorithm import buildArea
-from sextante.core.SextanteConfig import Setting, SextanteConfig
+from processing.core.AlgorithmProvider import AlgorithmProvider
+from processinglwgeomprovider.LwgeomAlgorithm import makeValid
+from processinglwgeomprovider.LwgeomAlgorithm import buildArea
+from processing.core.ProcessingConfig import Setting, ProcessingConfig
 
 class LwgeomAlgorithmProvider(AlgorithmProvider):
 
@@ -44,14 +44,14 @@ class LwgeomAlgorithmProvider(AlgorithmProvider):
         AlgorithmProvider.initializeSettings(self)
 
         # add settings
-        SextanteConfig.addSetting(Setting("LWGEOM algorithms", LwgeomAlgorithmProvider.LWGEOM_PATH_SETTING, "Path to liblwgeom", ""))
-        #To get the parameter of a setting parameter, use SextanteConfig.getSetting(name_of_parameter)
+        ProcessingConfig.addSetting(Setting("LWGEOM algorithms", LwgeomAlgorithmProvider.LWGEOM_PATH_SETTING, "Path to liblwgeom", ""))
+        #To get the parameter of a setting parameter, use ProcessingConfig.getSetting(name_of_parameter)
 
     def unload(self):
         '''remove settings, so they do not appear anymore when the plugin 
         is unloaded'''
         AlgorithmProvider.unload(self)
-        SextanteConfig.removeSetting( LwgeomAlgorithmProvider.LWGEOM_PATH_SETTING )
+        ProcessingConfig.removeSetting( LwgeomAlgorithmProvider.LWGEOM_PATH_SETTING )
 
 
     def getName(self):

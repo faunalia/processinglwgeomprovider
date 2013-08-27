@@ -2,7 +2,7 @@
 
 """
 ***************************************************************************
-SextanteLwgeomProviderPlugin.py
+ProcessingLwgeomProviderPlugin.py
 ---------------------
 Date : November 2012
 Copyright : (C) 2012 by Giuseppe Sucameli
@@ -25,21 +25,21 @@ __revision__ = '$Format:%H$'
 from qgis.core import *
 import os, sys
 import inspect
-from sextante.core.Sextante import Sextante
-from sextantelwgeomprovider.LwgeomAlgorithmProvider import LwgeomAlgorithmProvider
+from processing.core.Processing import Processing
+from processinglwgeomprovider.LwgeomAlgorithmProvider import LwgeomAlgorithmProvider
 
 cmd_folder = os.path.split(inspect.getfile( inspect.currentframe() ))[0]
 if cmd_folder not in sys.path:
     sys.path.insert(0, cmd_folder)
 
-class SextanteLwgeomProviderPlugin:
+class ProcessingLwgeomProviderPlugin:
 
     def __init__(self):
         self.provider = LwgeomAlgorithmProvider()
 
     def initGui(self):
-        Sextante.addProvider(self.provider)
+        Processing.addProvider(self.provider)
 
     def unload(self):
-        Sextante.removeProvider(self.provider)
+        Processing.removeProvider(self.provider)
 

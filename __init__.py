@@ -23,10 +23,10 @@ __copyright__ = '(C) 2012, Giuseppe Sucameli'
 __revision__ = '$Format:%H$'
 
 def name():
-    return "SEXTANTE LWGEOM provider"
+    return "Processing LWGEOM provider"
 
 def description():
-    return "Expose liblwgeom functions to SEXTANTE."
+    return "Expose liblwgeom functions to Processing."
 
 def author():
     return "Giuseppe Sucameli (Faunalia)"
@@ -38,14 +38,14 @@ def email():
     return "sucameli@faunalia.it"
 
 def version():
-    return "0.1"
+    return "0.3"
 
 def icon():
     return "icon.png"
 
 def qgisMinimumVersion():
-    return "1.0"
+    return "2.0"
 
 def classFactory(iface):
-    from sextantelwgeomprovider.SextanteLwgeomProviderPlugin import SextanteLwgeomProviderPlugin
-    return SextanteLwgeomProviderPlugin()
+    from processinglwgeomprovider.ProcessingLwgeomProviderPlugin import ProcessingLwgeomProviderPlugin
+    return ProcessingLwgeomProviderPlugin()

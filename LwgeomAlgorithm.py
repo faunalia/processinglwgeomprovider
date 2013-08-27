@@ -22,12 +22,12 @@ __copyright__ = '(C) 2012, Giuseppe Sucameli'
 # This will get replaced with a git SHA1 when you do a git archive
 __revision__ = '$Format:%H$'
 
-from sextante.core.GeoAlgorithm import GeoAlgorithm
-from sextante.outputs.OutputVector import OutputVector
-from sextante.parameters.ParameterVector import ParameterVector
-from sextante.core.Sextante import Sextante
-from sextante.core.SextanteConfig import SextanteConfig
-from sextante.core.SextanteLog import SextanteLog
+from processing.core.GeoAlgorithm import GeoAlgorithm
+from processing.outputs.OutputVector import OutputVector
+from processing.parameters.ParameterVector import ParameterVector
+from processing.core.Processing import Processing
+from processing.core.ProcessingConfig import ProcessingConfig
+from processing.core.ProcessingLog import ProcessingLog
 
 import os
 from qgis.core import *
@@ -54,14 +54,14 @@ class LwgeomAlgorithm(GeoAlgorithm):
 
     def getLwgeomLibrary(self):
         # try to load the LWGEOM library
-        libpath = SextanteConfig.getSetting("LWGEOM_PATH_SETTING")
+        libpath = ProcessingConfig.getSetting("LWGEOM_PATH_SETTING")
         lib = ctypes.CDLL(libpath)
 
-        # install a custom error handler to report them to sextante log
+        # install a custom error handler to report them to processing log
         def onError(fmt, ap):
             msg = ctypes.c_char_p()
             ret = lib.lw_vasprintf(ctypes.byref(msg), fmt, ap)
-            SextanteLog.addToLog(SextanteLog.LOG_ERROR, u"FAILURE: liblwgeom error is:\n%s" % msg.value)
+            ProcessingLog.addToLog(ProcessingLog.LOG_ERROR, u"FAILURE: liblwgeom error is:\n%s" % msg.value)
 
         REPORTERFUNC = ctypes.CFUNCTYPE(None, ctypes.c_char_p, ctypes.c_void_p)
         errorreporter = REPORTERFUNC( onError )
@@ -83,8 +83,8 @@ class LwgeomAlgorithm(GeoAlgorithm):
 
         # input layers vales are always a string with its location.
         # That string can be converted into a QGIS object (a QgsVectorLayer in this case))
-        # using the Sextante.getObject() method
-        inputLayer = Sextante.getObject(inputFilename)
+        # using the Processing.getObject() method
+        inputLayer = Processing.getObject(inputFilename)
 
         # create the output layer
         provider = inputLayer.dataProvider()
@@ -102,7 +102,7 @@ class LwgeomAlgorithm(GeoAlgorithm):
             for feat in selection:
                 # run lwgeom algorithm on the feature geometry
                 if not self.runLwgeom( feat.geometry(), lib=liblwgeom ):
-                    SextanteLog.addToLog( SextanteLog.LOG_ERROR, u"FAILURE: previous failure info: layer %s, feature #%s" % (inputLayer.source(), feat.id()) )
+                    ProcessingLog.addToLog( ProcessingLog.LOG_ERROR, u"FAILURE: previous failure info: layer %s, feature #%s" % (inputLayer.source(), feat.id()) )
                 writer.addFeature(feat)
 
                 progress.setPercentage( idx*100/count )
@@ -117,7 +117,7 @@ class LwgeomAlgorithm(GeoAlgorithm):
             for feat in features:
                 # run lwgeom algorithm on the feature geometry
                 if not self.runLwgeom( feat.geometry(), lib=liblwgeom ):
-                    SextanteLog.addToLog( SextanteLog.LOG_ERROR, u"FAILURE: previous failure info: layer %s, feature #%s" % (inputLayer.source(), feat.id()) )
+                    ProcessingLog.addToLog( ProcessingLog.LOG_ERROR, u"FAILURE: previous failure info: layer %s, feature #%s" % (inputLayer.source(), feat.id()) )
                 writer.addFeature(feat)
 
                 progress.setPercentage( idx*100/count )
@@ -137,7 +137,7 @@ class LwgeomAlgorithm(GeoAlgorithm):
             del wkb_in
 
         if not lwgeom_in:
-            SextanteLog.addToLog(SextanteLog.LOG_ERROR, "FAILURE: liblwgeom wasn't able to parse the WKB!")
+            ProcessingLog.addToLog(ProcessingLog.LOG_ERROR, "FAILURE: liblwgeom wasn't able to parse the WKB!")
             return False
 
         # execute the liblwgeom function on the LWGEOM geometry
@@ -160,7 +160,7 @@ class LwgeomAlgorithm(GeoAlgorithm):
             del lwgeom_out
 
         if not wkb_out or wkb_size_out <= 0:
-            SextanteLog.addToLog(SextanteLog.LOG_ERROR, "FAILURE: liblwgeom wasn't able to convert the geometry back to WKB!")
+            ProcessingLog.addToLog(ProcessingLog.LOG_ERROR, "FAILURE: liblwgeom wasn't able to convert the geometry back to WKB!")
             return False
 
         # update the QgsGeometry through the WKB
@@ -184,7 +184,7 @@ class makeValid(LwgeomAlgorithm):
         # call the liblwgeom make_valid
         lwgeom_out = lib.lwgeom_make_valid( lwgeom_in )
         if not lwgeom_out:
-            SextanteLog.addToLog(SextanteLog.LOG_ERROR, "FAILURE: liblwgeom wasn't able to make the geometry valid!")
+            ProcessingLog.addToLog(ProcessingLog.LOG_ERROR, "FAILURE: liblwgeom wasn't able to make the geometry valid!")
             return
 
         return lwgeom_out
@@ -210,7 +210,7 @@ class buildArea(LwgeomAlgorithm):
         # call the liblwgeom buildarea
         lwgeom_out = lib.lwgeom_buildarea( lwgeom_in )
         if not lwgeom_out:
-            SextanteLog.addToLog(SextanteLog.LOG_ERROR, "FAILURE: liblwgeom wasn't able to build area!")
+            ProcessingLog.addToLog(ProcessingLog.LOG_ERROR, "FAILURE: liblwgeom wasn't able to build area!")
             return
 
         return lwgeom_out

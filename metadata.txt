@@ -15,15 +15,15 @@
 #__author__ = 'Giuseppe Sucameli'
 #__date__ = 'November 2012'
 #__copyright__ = '(C) 2012, Giuseppe Sucameli'
-## This will get replaced with a git SHA1 when you do a git archive
+## This will get replaced with a/mnt/data/PROGRAMMING/GIS/postgis-trunk/postgis/ git SHA1 when you do a git archive
 #__revision__ = '$Format:%H$'
 
 ; the next section is mandatory
 [general]
-name=SEXTANTE LWGEOM Provider
-description=Expose liblwgeom functions to SEXTANTE.
+name=Processing LWGEOM Provider
+description=Expose liblwgeom functions to Processing.
 
-version=0.2
+version=0.3
 qgisMinimumVersion=2.0
 
 category=Plugin
@@ -35,15 +35,17 @@ email=sucameli@faunalia.it
 
 ; start of optional metadata
 
-changelog=Ported to sip API 2.0
+changelog=0.3
+	renamed references to Sextante to Processing (but not the plgin and reference name)
+	0.2
+	Ported to sip API 2.0
 
 ; tags are in comma separated value format, spaces are allowed
-tags=sextante, liblwgeom
+tags=processing, liblwgeom
 
 homepage=http://www.faunalia.com/
 tracker=http://hub.qgis.org/projects/sextantelwgeomprovider
 repository=https://github.com/faunalia/sextantelwgeomprovider
-;repository=http://hub.qgis.org/projects/sextantelwgeomprovider/repository
 
 ; path to a icon within the plugin folder
 icon=logo.png
