@@ -1,9 +1,6 @@
-processinglwgeomprovider
-========================
-
 Expose liblwgeom functions to QGIS Processing
-=======
-Expose liblwgeom functions to QGIS Processing
+=============================================
+Tihs QGIS plugin expose liblwgeom functions to QGIS Processing
 
 !!!Plugin DOESN'T work with postgis 2.0.* installations!!!
 
