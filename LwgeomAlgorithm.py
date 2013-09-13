@@ -36,11 +36,19 @@ from PyQt4.QtGui import *
 
 import ctypes
 
+
 class LwgeomAlgorithm(GeoAlgorithm):
     
     OUTPUT_LAYER = "OUTPUT_LAYER"
     INPUT_LAYER = "INPUT_LAYER"
 
+    def checkParameterValuesBeforeExecuting(self):
+        self.useThread = ProcessingConfig.getSetting(ProcessingConfig.USE_THREADS)
+        if self.useThread:
+            message = "WARNING: Multithread execution has problems. Disable 'Run algorithms in a new thread' feature in Processing General configuration"
+            ProcessingLog.addToLog(ProcessingLog.LOG_WARNING, message)
+            return message
+    
     def getIcon(self):
         filepath = os.path.dirname(__file__) + "/icons/makeValid.png"
         return QIcon(filepath)
