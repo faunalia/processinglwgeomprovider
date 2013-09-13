@@ -23,7 +23,7 @@
 name=Processing LWGEOM Provider
 description=Expose liblwgeom functions to Processing.
 
-version=0.3
+version=0.4
 qgisMinimumVersion=2.0
 
 category=Plugin
@@ -35,8 +35,10 @@ email=sucameli@faunalia.it
 
 ; start of optional metadata
 
-changelog=0.3
-	renamed references to Sextante to Processing (but not the plgin and reference name)
+changelog=0.4 
+	Avoid running if multi-thread processing feature is enabled
+	0.3
+	Renamed references to Sextante to Processing (but not the plgin and reference name)
 	0.2
 	Ported to sip API 2.0
 

@@ -38,7 +38,7 @@ def email():
     return "sucameli@faunalia.it"
 
 def version():
-    return "0.3"
+    return "0.4444"
 
 def icon():
     return "icon.png"
