@@ -37,6 +37,30 @@ from PyQt4.QtGui import *
 import ctypes
 
 
+class GBOX(ctypes.Structure):
+    _fields_ = [
+        ("flags", ctypes.c_ubyte),
+        ("xmin", ctypes.c_double),
+        ("xmax", ctypes.c_double),
+        ("ymin", ctypes.c_double),
+        ("ymax", ctypes.c_double),
+        ("zmin", ctypes.c_double),
+        ("zmax", ctypes.c_double),
+        ("mmin", ctypes.c_double),
+        ("mmax", ctypes.c_double)
+    ]
+
+
+class LWGEOM(ctypes.Structure):
+    _fields_ = [
+        ("type", ctypes.c_ubyte),
+        ("flags", ctypes.c_ubyte),
+        ("bbox", ctypes.POINTER(GBOX)),
+        ("srid", ctypes.c_uint),
+        ("data", ctypes.c_void_p),
+    ]
+
+
 class LwgeomAlgorithm(GeoAlgorithm):
     
     OUTPUT_LAYER = "OUTPUT_LAYER"
@@ -137,8 +161,29 @@ class LwgeomAlgorithm(GeoAlgorithm):
 
     def runLwgeom(self, geom, lib, **kwargs):
         # create a LWGEOM geometry parsing the WKB
-        wkb_in = ctypes.create_string_buffer(geom.asWkb())
-        wkb_size_in = ctypes.c_int(geom.wkbSize())
+
+        # LWGEOM* lwgeom_from_wkb(const uint8_t *wkb,
+        #                         const size_t wkb_size,
+        #                         const char check)
+        lib.lwgeom_from_wkb.argtypes = [ctypes.POINTER(ctypes.c_ubyte),
+                                        ctypes.c_size_t,
+                                        ctypes.c_char]
+        lib.lwgeom_from_wkb.restype = ctypes.POINTER(LWGEOM)
+
+        # uint8_t* lwgeom_to_wkb(const LWGEOM *geom,
+        #                        uint8_t variant,
+        #                        size_t *size_out)
+        lib.lwgeom_to_wkb.argtypes = [ctypes.POINTER(LWGEOM),
+                                      ctypes.c_ubyte,
+                                      ctypes.POINTER(ctypes.c_size_t)]
+        lib.lwgeom_to_wkb.restype = ctypes.POINTER(ctypes.c_ubyte)
+
+        # void lwgeom_free(LWGEOM *lwgeom)
+        lib.lwgeom_free.argtypes = [ctypes.POINTER(LWGEOM)]
+
+        wkb_in_buf = ctypes.create_string_buffer(geom.asWkb())
+        wkb_in = ctypes.cast(ctypes.addressof(wkb_in_buf), ctypes.POINTER(ctypes.c_ubyte))
+        wkb_size_in = ctypes.c_size_t(geom.wkbSize())
         LW_PARSER_CHECK_NONE = ctypes.c_char(chr(0))    #define LW_PARSER_CHECK_NONE   0
         try:
             lwgeom_in = lib.lwgeom_from_wkb( wkb_in, wkb_size_in, LW_PARSER_CHECK_NONE )
@@ -191,6 +236,9 @@ class makeValid(LwgeomAlgorithm):
 
     def runLwgeomFunc(self, lwgeom_in, lib, **kwargs):
         # call the liblwgeom make_valid
+        # LWGEOM* lwgeom_make_valid(LWGEOM* lwgeom_in)
+        lib.lwgeom_make_valid.argtypes = [ctypes.POINTER(LWGEOM)]
+        lib.lwgeom_make_valid.restype = ctypes.POINTER(LWGEOM)
         lwgeom_out = lib.lwgeom_make_valid( lwgeom_in )
         if not lwgeom_out:
             ProcessingLog.addToLog(ProcessingLog.LOG_ERROR, "FAILURE: liblwgeom wasn't able to make the geometry valid!")
@@ -217,6 +265,9 @@ class buildArea(LwgeomAlgorithm):
 
     def runLwgeomFunc(self, lwgeom_in, lib, **kwargs):
         # call the liblwgeom buildarea
+        # LWGEOM* lwgeom_buildarea(const LWGEOM *geom)
+        lib.lwgeom_buildarea.argtypes = [ctypes.POINTER(LWGEOM)]
+        lib.lwgeom_buildarea.restype = ctypes.POINTER(LWGEOM)
         lwgeom_out = lib.lwgeom_buildarea( lwgeom_in )
         if not lwgeom_out:
             ProcessingLog.addToLog(ProcessingLog.LOG_ERROR, "FAILURE: liblwgeom wasn't able to build area!")
