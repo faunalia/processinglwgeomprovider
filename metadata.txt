@@ -23,7 +23,7 @@
 name=Processing LWGEOM Provider
 description=Expose liblwgeom functions to Processing.
 
-version=0.4.2
+version=0.4.3
 qgisMinimumVersion=2.0
 
 category=Plugin
@@ -35,7 +35,9 @@ email=sucameli@faunalia.it
 
 ; start of optional metadata
 
-changelog=0.4.2
+changelog=0.4.3
+	added basic help get from libwgeom.h
+	0.4.2
 	Merged Fisher's fix in OSX environment - http://hub.qgis.org/issues/9105
 	0.4.1
 	Manage if multi thread processing flag is available or not
