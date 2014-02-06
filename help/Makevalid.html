@@ -1,29 +1,75 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<HTML>
-<HEAD>
-	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
-	<TITLE></TITLE>
-	<META NAME="GENERATOR" CONTENT="LibreOffice 3.5  (Linux)">
-	<META NAME="AUTHOR" CONTENT="ginetto ">
-	<META NAME="CREATED" CONTENT="20140206;11554900">
-	<META NAME="CHANGEDBY" CONTENT="ginetto ">
-	<META NAME="CHANGED" CONTENT="20140206;11565900">
-	<META NAME="CHANGEDBY" CONTENT="ginetto ">
-	<STYLE TYPE="text/css">
-	<!--
-		@page { margin: 0.79in }
-		P { margin-bottom: 0.08in }
-		H1 { margin-bottom: 0.08in }
-		H1.western { font-family: "Liberation Sans", sans-serif; font-size: 16pt }
-		H1.cjk { font-family: "Droid Sans"; font-size: 16pt }
-		H1.ctl { font-family: "FreeSans"; font-size: 16pt }
-		A:link { so-language: zxx }
-	-->
-	</STYLE>
-</HEAD>
-<BODY LANG="en-US" DIR="LTR">
-<H1 CLASS="western" ALIGN=CENTER>LWGEOM Make Valid</H1>
-<P STYLE="margin-bottom: 0in">Attempts to make an invalid geometries
-valid w/out losing points.</P>
-</BODY>
-</HTML>
+﻿<html><!--
+ Archive processed by SingleFile 
+ url: http://postgis.net/docs/ST_MakeValid.html 
+ saved date: Thu Feb 06 2014 12:20:00 GMT+0100 (CET) 
+--><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>ST_MakeValid</title><style rel="stylesheet" type="text/css" data-href="http://postgis.net/docs/style.css">/* PostGIS Alternative Docbook CSS | Dane Springmeyer
+----------------------------------------------------- */
+
+/* 1. Body
+----------------------------------------------------- */
+
+body { font: 90% 'Lucida Grande', Verdana, Geneva, Arial, Helvetica, sans-serif; background: #ffffff; color: #2e2e2e; margin: 2em; padding: 2em; }
+
+
+/* 2. Standard Tags
+----------------------------------------------------- */
+
+a {text-decoration: none; color: #418acd; }
+a:hover, li a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover {color: #e9cb2b; }
+p,form,td,th,dt,li{font-size:10pt}
+h1, h2 {color: #282e5b;}
+h3,h4,th,dt,b {color: #213780;}
+h1 { font-size: 24px; line-height: 24px; margin-bottom: 24px;}
+h2 { font-size: 22px; line-height: 22px; margin-bottom: 21px;}
+h3 { font-size: 16px; line-height: 18px; margin-bottom: 16px;}
+h4 { font-size: 14px; line-height: 16px; margin-bottom: 14px;}
+h5 { font-size: 13px; line-height: 10px; margin-bottom: 13px;}
+table, td {border-collapse: collapse;}
+/*table, td {border: 1;padding: 0}
+*/
+
+/* 3. Block Formatted
+----------------------------------------------------- */
+pre, .literallayout { border-right-width: 0px; border-left-width: 0px; border-bottom-width: 2px; border-top-width: 2px; font-family: "DejaVu Sans", "Lucida Grande", "Verdana", Courier, mono; line-height: 16px; border-color: #f7931e; border-style: solid; font-size: 11px; margin-bottom: 10px; margin-top: 10px; overflow: auto; padding: 10px; background: #f8f8f9; -moz-border-radius: 2px; -webkit-border-radius: 2px;}
+.note { border-left-width: 0px; border-bottom-width: 2px; border-right-width: 0px; border-top-width: 2px; width: 80%; border-color: #a2d545; border-style: solid; font-size: 11px; margin-bottom: 10px; margin-top: 10px; overflow: auto; padding: 10px; background: #e4f7dd; -moz-border-radius: 2px; -webkit-border-radius: 2px;}
+/* code { border-right-style: solid; border-right-color: #79791a; border-left-color: #79791b; border-left-style: solid; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px; border-top-width: 0px; padding-left: 3px; padding-bottom: 1px; padding-right: 3px; padding-top: 1px; font-family: "Courier New", Courier, Monaco, monospace; color: #fefff7; background: #9b9e96; -moz-border-radius: 2px; -webkit-border-radius: 2px;} */
+.programlisting {font-family: "Courier New", Courier, Monaco, monospace;}
+.warning { border-left-width: 0px; border-bottom-width: 2px; border-right-width: 0px; border-top-width: 2px; width: 80%; border-color: #a2d545; border-style: solid; font-size: 11px; margin-bottom: 10px; margin-top: 10px; overflow: auto; padding: 10px; background: #FFE699; -moz-border-radius: 2px; -webkit-border-radius: 2px;}
+
+/* 4. Docbook Specifics
+----------------------------------------------------- */
+.question {font-weight: bold; color: #213780;}
+.term { font-weight: bold; color: #38488d;}
+.term:hover { font-weight: bold; color: #88000f;}
+.chapter { margin-top: 60px; }
+.sect1 { margin-top: 50px; }
+.sect2 { margin-top: 40px; }
+.sect3 { margin-top: 30px; }
+.caption p {font-style: italic; font-size: 90%;}
+.remark { background: #ffff00; }
+.equation {font-style: italic; font-size: 90%;}
+.command, .code {font-weight: normal; font-family: "Courier New", Courier, Monaco, monospace; color: #000000;}
+.styledtable table thead th { border-right-width: 0px; border-left-width: 0px; border-bottom-width: 1px; border-top-width: 0px; border-color: #f7931e; border-style: solid;  }
+.styledtable > table { border-right-width: 0px; border-left-width: 0px; border-bottom-width: 2px; border-top-width: 2px; border-color: #f7931e; border-style: solid;  }
+.styledtable table td,th { color: #000000; font-style: italic; padding-right:10px; padding-left:10px; border-right-width: 0px; border-left-width: 0px; border-bottom-width: 2px; border-top-width: 2px; border-width: 0px;}
+.pdparam {color: #990000}
+</style><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="PostGIS 2.1.2dev Manual"><link rel="up" href="reference.html#Geometry_Processing" title="8.10.&nbsp;Geometry Processing"><link rel="prev" href="ST_LineToCurve.html" title="ST_LineToCurve"><link rel="next" href="ST_MemUnion.html" title="ST_MemUnion"><style type="text/css"></style><link type="image/x-icon" rel="shortcut icon" href="data:text/html; charset=utf-8;base64,PCFkb2N0eXBlIGh0bWw+CjxoZWFkPgogIDxtZXRhIGNoYXJzZXQ9InV0Zi04IiAvPgogICAgPG1ldGEgbmFtZT0iYXV0aG9yIiBjb250ZW50PSJQb3N0R0lTIERldmVsb3BlcnMiIC8+CiAgPG1ldGEgbmFtZT0ia2V5d29yZHMiIGNvbnRlbnQ9InBvc3RnaXMgcG9zdGdpcywgZGF0YWJhc2UsIHNwYXRpYWwsIHNxbCwgbWFwcGluZywgcXVlcmllcywgZ2lzLCBnZW9jb2RpbmcsIHJvdXRpbmcsIHJhc3RlciIgLz4KICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLGluaXRpYWwtc2NhbGU9MS4wIiAvPgogIDxtZXRhIG5hbWU9InJvYm90cyIgY29udGVudD0iaW5kZXgsZm9sbG93IiAvPgogIDxtZXRhIG5hbWU9InJldmlzaXQtYWZ0ZXIiIGNvbnRlbnQ9IjIgZGF5cyI+CiAgPHRpdGxlPlBvc3RHSVMgJm1kYXNoOyBDYXRlZ29yeSBMaXN0aW5nPC90aXRsZT4KICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHA6Ly9wb3N0Z2lzLm5ldC9jc3MvYmx1ZXByaW50L3NjcmVlbi5jc3MiIHR5cGU9InRleHQvY3NzIiBtZWRpYT0ic2NyZWVuLCBwcm9qZWN0aW9uIiAvPgogIDxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iaHR0cDovL3Bvc3RnaXMubmV0L2Nzcy9ibHVlcHJpbnQvcHJpbnQuY3NzIiB0eXBlPSJ0ZXh0L2NzcyIgbWVkaWE9InByaW50IiAvPiAKICA8IS0tW2lmIGx0IElFIDhdPgogICAgICA8bGluayByZWw9InN0eWxlc2hlZXQiIGhyZWY9Imh0dHA6Ly9wb3N0Z2lzLm5ldC9jc3MvYmx1ZXByaW50L2llLmNzcyIgdHlwZT0idGV4dC9jc3MiIG1lZGlhPSJzY3JlZW4sIHByb2plY3Rpb24iIC8+CiAgPCFbZW5kaWZdLS0+CiAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiB0eXBlPSJ0ZXh0L2NzcyIgaHJlZj0iaHR0cDovL3Bvc3RnaXMubmV0L2Nzcy9wb3N0Z2lzLmNzcyIgLz4KICA8bGluayByZWw9Imljb24iIHR5cGU9ImltYWdlL3ZuZC5taWNyb3NvZnQuaWNvbiIgaHJlZj0iaHR0cDovL3Bvc3RnaXMubmV0L2ltYWdlcy9mYXZpY29uLmljbyIgLz4KICA8bGluayBocmVmPSJodHRwOi8vcG9zdGdpcy5uZXQvY3NzL2pxdWVyeS50d2VldC5jc3MiIG1lZGlhPSJhbGwiIHJlbD0ic3R5bGVzaGVldCIgdHlwZT0idGV4dC9jc3MiIC8+CiAgPHNjcmlwdCBzcmM9Imh0dHA6Ly9hamF4Lmdvb2dsZWFwaXMuY29tL2FqYXgvbGlicy9qcXVlcnkvMS44LjMvanF1ZXJ5Lm1pbi5qcyIgdHlwZT0idGV4dC9qYXZhc2NyaXB0Ij48L3NjcmlwdD4KIDwvaGVhZD4KPGJvZHk+CiAgPGRpdiBpZD0iY29udGFpbmVyIj4KICAgIDxkaXYgaWQ9ImhlYWRlciI+CiAgICAgICAgICAgICAgICAKICAgICAgICA8aDE+PGEgaHJlZj0iaHR0cDovL3Bvc3RnaXMubmV0LyI+UG9zdEdJUzwvYT48L2gxPgogICAgICAgIDxoMj5TcGF0aWFsIGFuZCBHZW9ncmFwaGljIG9iamVjdHMgZm9yIFBvc3RncmVTUUw8L2gyPgogICAgICAgIDx1bCBjbGFzcz0ibmF2Ij4KICAgICAgICAgIDxsaT48YSBocmVmPSJodHRwOi8vcG9zdGdpcy5uZXQvIj5Ib21lPC9hPjwvbGk+CiAgICAgICAgICA8bGk+PGEgaHJlZj0iaHR0cDovL3Bvc3RnaXMubmV0L2luc3RhbGwiPkRvd25sb2FkPC9hPjwvbGk+CiAgICAgICAgICA8bGk+PGEgaHJlZj0iaHR0cDovL3Bvc3RnaXMubmV0L2RvY3VtZW50YXRpb24iPkRvY3VtZW50YXRpb248L2E+PC9saT4KICAgICAgICAgIDxsaT48YSBocmVmPSJodHRwOi8vcG9zdGdpcy5uZXQvZGV2ZWxvcG1lbnQiPkRldmVsb3BtZW50PC9hPjwvbGk+CiAgICAgICAgICA8bGk+PGEgaHJlZj0iaHR0cDovL3Bvc3RnaXMubmV0L3N1cHBvcnQiPlN1cHBvcnQ8L2E+PC9saT4KICAgICAgICAgIDxsaT48YSBjbGFzcz0ibGFzdCIgaHJlZj0iaHR0cDovL3d3dy5vc2dlby5vcmciPjxpbWcgc3JjPSJodHRwOi8vcG9zdGdpcy5uZXQvaW1hZ2VzL29zZ2VvLnBuZyIgLz48L2E+PC9saT4KICAgICAgICA8L3VsPgogICAgICAgICAgICA8L2Rpdj4gPCEtLSBoZWFkZXIgLS0+CiAgICAgICAgCjxoMz5Qb3N0cyBpbiBjYXRlZ29yeSAnZmF2aWNvbi5pY28nPC9oMz4KCgoKPGRpdiBpZD0ibmF2aWdhdGlvbiI+CgkJPC9kaXY+CgogICAgPGRpdiBpZD0iZm9vdGVyIj4KICAgICAgICAgICAgICAgIDxkaXYgY2xhc3M9Im1hcCI+CjxoMT5TaXRlIE1hcDwvaDE+Cjx1bD4KICA8bGk+PGEgaHJlZj0iaHR0cDovL3Bvc3RnaXMubmV0LyI+SG9tZTwvYT48L2xpPgogIDxsaT48YSBocmVmPSJodHRwOi8vcG9zdGdpcy5uZXQvaW5zdGFsbCI+SW5zdGFsbDwvYT48L2xpPgogIDxsaT48YSBocmVmPSJodHRwOi8vcG9zdGdpcy5uZXQvZG9jdW1lbnRhdGlvbiI+RG9jdW1lbnRhdGlvbjwvYT48L2xpPgogIDxsaT48YSBocmVmPSJodHRwOi8vcG9zdGdpcy5uZXQvZGV2ZWxvcG1lbnQiPkRldmVsb3BtZW50PC9hPjwvbGk+CiAgPGxpPjxhIGhyZWY9Imh0dHA6Ly9wbGFuZXQucG9zdGdpcy5uZXQiPlBsYW5ldCBQb3N0R0lTPC9hPjwvbGk+CiAgPGxpPjxhIGhyZWY9Imh0dHA6Ly9wb3N0Z2lzLm5ldC9zdXBwb3J0Ij5TdXBwb3J0PC9hPjwvbGk+CjwvdWw+CjwvZGl2PgoKPGRpdiBjbGFzcz0ibWFwIiBpdGVtc2NvcGUgaXRlbXR5cGU9Imh0dHA6Ly93d3cuc2NoZW1hLm9yZy9Pcmdhbml6YXRpb24iPgo8aDEgaXRlbXByb3A9Im5hbWUiPlBvc3RHSVMgUHJvamVjdCBTdGVlcmluZyBDb21taXR0ZWUgKFBTQyk8L2gxPgo8bWV0YSBpdGVtc2NvcGUgaXRlbXByb3A9ImRlc2NyaXB0aW9uIiBjb250ZW50PSJUaGUgUG9zdEdJUyBQU0MgbWFuYWdlcyB0aGUgZnV0dXJlIGRpcmVjdGlvbiBvZiB0aGUgUG9zdEdJUyBwcm9qZWN0IHN1Y2ggYXMgdGltaW5nIG9mIHJlbGVhc2VzIGFuZCBuZXcgZmVhdHVyZXMuIiAvPgo8dWw+CiAgPGxpIGl0ZW1zY29wZSBpdGVtcHJvcD0iY29udGFjdFBvaW50IiBpdGVtdHlwZT0iaHR0cDovL3d3dy5zY2hlbWEub3JnL0NvbnRhY3RQb2ludCI+PGEgaHJlZj0iaHR0cDovL2NsZXZlcmVsZXBoYW50LmNhLyIgaXRlbXByb3A9InVybCI+PHNwYW4gaXRlbXByb3A9Im5hbWUiPlBhdWwgUmFtc2V5PC9zcGFuPiAoPHNwYW4gaXRlbXByb3A9ImNvbnRhY3RUeXBlIj5DaGFpcjwvc3Bhbj4pPC9hPjwvbGk+CiAgPGxpIGl0ZW1zY29wZSBpdGVtcHJvcD0iY29udGFjdFBvaW50IiBpdGVtdHlwZT0iaHR0cDovL3d3dy5zY2hlbWEub3JnL0NvbnRhY3RQb2ludCI+PGEgaHJlZj0iaHR0cDovL3N0cmsua2V5Yml0Lm5ldC8iIGl0ZW1wcm9wPSJ1cmwiPjxzcGFuIGl0ZW1wcm9wPSJuYW1lIj5TYW5kcm8gU2FudGlsbGk8L3NwYW4+PC9hPjwvbGk+CiAgPGxpIGl0ZW1zY29wZSBpdGVtcHJvcD0iY29udGFjdFBvaW50IiBpdGVtdHlwZT0iaHR0cDovL3d3dy5zY2hlbWEub3JnL0NvbnRhY3RQb2ludCI+PGEgaHJlZj0iaHR0cDovL3d3dy5ib3N0b25naXMuY29tLyIgaXRlbXByb3A9InVybCI+PHNwYW4gaXRlbXByb3A9Im5hbWUiPlJlZ2luYSBPYmU8L3NwYW4+PC9hPjwvbGk+CiAgPGxpIGl0ZW1zY29wZSBpdGVtcHJvcD0iY29udGFjdFBvaW50IiBpdGVtdHlwZT0iaHR0cDovL3d3dy5zY2hlbWEub3JnL0NvbnRhY3RQb2ludCI+PGEgaHJlZj0iaHR0cDovL3d3dy5saW5rZWRpbi5jb20vcHViL21hcmstY2F2ZS1heWxhbmQvMS81NGEvMTMzIiBpdGVtcHJvcD0idXJsIj48c3BhbiBpdGVtcHJvcD0ibmFtZSI+TWFyayBDYXZlLUF5bGFuZDwvc3Bhbj48L2E+PC9saT4KICAgPGxpIGl0ZW1zY29wZSBpdGVtcHJvcD0iY29udGFjdFBvaW50IiBpdGVtdHlwZT0iaHR0cDovL3d3dy5zY2hlbWEub3JnL0NvbnRhY3RQb2ludCI+PGEgaHJlZj0iaHR0cDovL3d3dy5saW5rZWRpbi5jb20vcHViL2Jib3JpZS1wYXJrLzU0L2ExNi9iN2IiIGl0ZW1wcm9wPSJ1cmwiPjxzcGFuIGl0ZW1wcm9wPSJuYW1lIj5CYm9yaWUgUGFyazwvc3Bhbj48L2E+PC9saT4KPC91bD4KPC9kaXY+Cgo8cCBjbGFzcz0iY2xlYXIiPiZuYnNwOzwvcD4KICAgICAgICAgICAgPC9kaXY+IDwhLS0gZm9vdGVyIC0tPgogIDwvZGl2PiA8IS0tIGNvbnRhaW5lciAtLT4KPC9ib2R5Pgo8c2NyaXB0IHR5cGU9InRleHQvamF2YXNjcmlwdCI+CgogIHZhciBfZ2FxID0gX2dhcSB8fCBbXTsKICBfZ2FxLnB1c2goWydfc2V0QWNjb3VudCcsICdVQS0zNzc3NTc2Mi0xJ10pOwogIF9nYXEucHVzaChbJ190cmFja1BhZ2V2aWV3J10pOwoKICAoZnVuY3Rpb24oKSB7CiAgICB2YXIgZ2EgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdzY3JpcHQnKTsgZ2EudHlwZSA9ICd0ZXh0L2phdmFzY3JpcHQnOyBnYS5hc3luYyA9IHRydWU7CiAgICBnYS5zcmMgPSAoJ2h0dHBzOicgPT0gZG9jdW1lbnQubG9jYXRpb24ucHJvdG9jb2wgPyAnaHR0cHM6Ly9zc2wnIDogJ2h0dHA6Ly93d3cnKSArICcuZ29vZ2xlLWFuYWx5dGljcy5jb20vZ2EuanMnOwogICAgdmFyIHMgPSBkb2N1bWVudC5nZXRFbGVtZW50c0J5VGFnTmFtZSgnc2NyaXB0JylbMF07IHMucGFyZW50Tm9kZS5pbnNlcnRCZWZvcmUoZ2EsIHMpOwogIH0pKCk7Cgo8L3NjcmlwdD4KPC9odG1sPgo="></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tbody><tr><th colspan="3" align="center">ST_MakeValid</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="http://postgis.net/docs/ST_LineToCurve.html">Prev</a>&nbsp;</td><th width="60%" align="center">8.10.&nbsp;Geometry Processing</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="http://postgis.net/docs/ST_MemUnion.html">Next</a></td></tr></tbody></table><hr></div><div class="refentry" title="ST_MakeValid"><a name="ST_MakeValid"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>ST_MakeValid — Attempts to make an invalid geometry valid without losing vertices.</p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><div class="funcsynopsis"><p><code class="funcdef">geometry <b class="fsfunc">ST_MakeValid</b>(</code>geometry <var class="pdparam">input</var><code>)</code>;</p></div></div><div class="refsection" title="Description"><a name="idp18181472"></a><h2>Description</h2><p>
+    The function attempts to create a valid representation of a given invalid
+    geometry without losing any of the input vertices. 
+    Already-valid geometries are returned without further intervention.
+    </p><p>
+    Supported inputs are: POINTS, MULTIPOINTS, LINESTRINGS,
+    MULTILINESTRINGS, POLYGONS, MULTIPOLYGONS and GEOMETRYCOLLECTIONS
+    containing any mix of them.
+    </p><p>
+    In case of full or partial dimensional collapses, the output geometry
+    may be a collection of lower-to-equal dimension geometries or a
+    geometry of lower dimension. 
+    </p><p>
+    Single polygons may become multi-geometries in case of self-intersections.
+    </p><p>Availability: 2.0.0, requires GEOS-3.3.0</p><p>Enhanced: 2.0.1, speed improvements requires GEOS-3.3.4</p><p>Enhanced: 2.1.0 added support for GEOMETRYCOLLECTION and MULTIPOINT.</p><p><span class="inlinemediaobject"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAYAAABG1c6oAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6AAAdTAAAOpgAAA6lwAAF2+XqZnUAAADkUlEQVR4nGL8//8/Az7w8eNHFiAlDMTSQMyCLPf353fbi+cv9Jy+dIPhzst3DLJiggwAAcRIyEBc4NzJY/+LJ69iOPhHguG/sikDw/2nDE5f9jAABBADyEBS8b5dO/+LeBf+Z+i5/J9hF1Bg5sP/yoEF/08dO/IfIIBINuzWpXP/ZfyK/jPMffqfYc+f/wwLn/+X8Mj5f+7Y4f8fPnwwAwggJlK8+efbJ4X8rvkMTyyjGBhkRRkYPv1gYNs0j2FOmgODoaUNI0gNQAAxAQOdkVgDGzsn39/Obc7AYKjHwPDzHwPDxiUMXbb8DN6BwTAzvgIEEMiF3MQYtmfr5v+d534wMLgHMDCAtB/Yy5Am+IQhPy+NH0nZA4AAYgD6W4tQuL159qhXLyj/P8P0u/8ZdgPDrev8f+e40v9f3r70QFcLEEAgA00JGVhR3/mfoWwHMEZ//2dY/Oq/YnD5/3vXL/3AphYggEBexhuGx/bt/j/xMtCr1nYMDL+A4bZtGUNPmBGDooYuBzb1AAGEN5Y/v30ZWDRjC8N3p0gGBi52Bob9exhyZN7/DwoLYcGlByCAoAb+Z3h89+aDk0cP///54wc8kLsnz113UtSGgUFdmYHh1oP/xg93fW8pSQWmGaa/uAwECCCGNy9fFDe09fznC6z8z+Bb+7+9b8p/UFiAEiqPL1Bs7ef/DBu+/ucIavp0YNeObYTCGyCAGOpbu/4zxM/6z7D03X+GBW/+q4ZW/H999+ol7+Ty/wz9V4G54d9/hqJN31o6+rcTk5MAAojp+uN3DAzGwAD/8RXo898Mj+RMGEISCnV3chsxMGhrMDDce/zP9PmRJ4Xp0TH4whsGAAKIyUAeWDI9us3AIA6kuVkZfupbMBw0zGD4Y+sKzA2/GZj2rPxTH2p+nktA9C0xBgIEEJOVke5v1mc3gK4Dxg87KwODAB8wN3gyMPAAM9CxIwypkh9/eAcGhRNjGAgABBCTppbaPM2/r/8xvP8IjDygof/+gb3O8P4zg8yVrQxVWVEviDUMBAACiImdV6gzWFf0E8OF0/8Z2IFplYWZgYEV6Lqj+xhKnJUY5NS01EkxECCAQOnwfVJUwEGFm9v/MZy9zMDw9gsDw969DNbvjzOkJUbpk2IYCAAEEOPDhw8FhYWFmc+eOvlwwopdnM++MzLqCDMzFCYEMcgoKAPLKgZQHQFMAgyPQDQ/Pz/eOgMgwAApjSCpX6K9ygAAAABJRU5ErkJggg=="></span>
+ This function supports 3d and will not drop the z-index.</p></div><div class="refsection" title="See Also"><a name="idp18187616"></a><h2>See Also</h2><p>
+                <a class="xref" href="http://postgis.net/docs/ST_IsValid.html" title="ST_IsValid">ST_IsValid</a>
+                <a class="xref" href="http://postgis.net/docs/ST_CollectionExtract.html" title="ST_CollectionExtract">ST_CollectionExtract</a>
+            </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tbody><tr><td width="40%" align="left"><a accesskey="p" href="http://postgis.net/docs/ST_LineToCurve.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="http://postgis.net/docs/reference.html#Geometry_Processing">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="http://postgis.net/docs/ST_MemUnion.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">ST_LineToCurve&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="http://postgis.net/docs/index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;ST_MemUnion</td></tr></tbody></table></div>
+</body></html>
