@@ -234,6 +234,10 @@ class makeValid(LwgeomAlgorithm):
         self.group = "[LWGEOM] Miscellaneous"
         LwgeomAlgorithm.addDefaultParameters(self)
 
+    def helpFile(self):
+        return os.path.join(os.path.dirname(__file__), 'help',
+                            self.name.replace(' ', '') + '.html')
+
     def runLwgeomFunc(self, lwgeom_in, lib, **kwargs):
         # call the liblwgeom make_valid
         # LWGEOM* lwgeom_make_valid(LWGEOM* lwgeom_in)
@@ -253,6 +257,10 @@ class buildArea(LwgeomAlgorithm):
         self.name = "Build area"
         self.group = "[LWGEOM] Miscellaneous"
         LwgeomAlgorithm.addDefaultParameters(self)
+
+    def helpFile(self):
+        return os.path.join(os.path.dirname(__file__), 'help',
+                            self.name.replace(' ', '') + '.html')
 
     #def inputToOutputGeomType(self, inputLayer):
     #    if inputLayer.wkbType() in (QGis.WKBPoint, QGis.WKBLineString25D, QGis.WKBPolygon25D):
