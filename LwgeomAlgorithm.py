@@ -23,8 +23,14 @@ __copyright__ = '(C) 2012, Giuseppe Sucameli'
 __revision__ = '$Format:%H$'
 
 from processing.core.GeoAlgorithm import GeoAlgorithm
-from processing.outputs.OutputVector import OutputVector
-from processing.parameters.ParameterVector import ParameterVector
+try:
+    from processing.outputs.OutputVector import OutputVector
+except:
+    from processing.core.outputs import OutputVector
+try:
+    from processing.core.parameters import ParameterVector
+except:
+    from processing.parameters.ParameterVector import ParameterVector
 from processing.core.Processing import Processing
 from processing.core.ProcessingConfig import ProcessingConfig
 from processing.core.ProcessingLog import ProcessingLog
