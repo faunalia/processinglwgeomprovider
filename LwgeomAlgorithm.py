@@ -22,9 +22,14 @@ __copyright__ = '(C) 2012, Giuseppe Sucameli'
 # This will get replaced with a git SHA1 when you do a git archive
 __revision__ = '$Format:%H$'
 
+from qgis.core import QGis
 from processing.core.GeoAlgorithm import GeoAlgorithm
-from processing.outputs.OutputVector import OutputVector
-from processing.parameters.ParameterVector import ParameterVector
+if QGis.QGIS_VERSION_INT >= 20500: 
+    from processing.core.outputs import OutputVector
+    from processing.core.parameters import ParameterVector
+else:
+    from processing.outputs.OutputVector import OutputVector
+    from processing.parameters.ParameterVector import ParameterVector
 from processing.core.Processing import Processing
 from processing.core.ProcessingConfig import ProcessingConfig
 from processing.core.ProcessingLog import ProcessingLog
