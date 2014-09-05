@@ -23,7 +23,7 @@
 name=Processing LWGEOM Provider
 description=Expose liblwgeom functions to Processing.
 
-version=0.4.3
+version=0.4.4
 qgisMinimumVersion=2.0
 
 category=Plugin
@@ -35,7 +35,9 @@ email=info@faunalia.eu
 
 ; start of optional metadata
 
-changelog=0.4.3
+changelog=0.4.4
+	Bugfix due to Processing refactoring - http://hub.qgis.org/issues/10953
+	0.4.3
 	added offline help get from http://postgis.net/docs
 	0.4.2
 	Merged Fisher's fix in OSX environment - http://hub.qgis.org/issues/9105
