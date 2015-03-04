@@ -22,10 +22,13 @@ __copyright__ = '(C) 2012, Giuseppe Sucameli'
 # This will get replaced with a git SHA1 when you do a git archive
 __revision__ = '$Format:%H$'
 
+import os
+
 from processing.core.AlgorithmProvider import AlgorithmProvider
 from processinglwgeomprovider.LwgeomAlgorithm import makeValid
 from processinglwgeomprovider.LwgeomAlgorithm import buildArea
 from processing.core.ProcessingConfig import Setting, ProcessingConfig
+from processing.tools.system import isMac, isWindows
 
 class LwgeomAlgorithmProvider(AlgorithmProvider):
 
@@ -39,16 +42,16 @@ class LwgeomAlgorithmProvider(AlgorithmProvider):
 
     def initializeSettings(self):
         '''add settings needed to configure our provider.'''
-        # call the parent method which takes care of adding a setting for 
+        # call the parent method which takes care of adding a setting for
         # activating or deactivating the algorithms in the provider
         AlgorithmProvider.initializeSettings(self)
 
         # add settings
-        ProcessingConfig.addSetting(Setting("LWGEOM algorithms", LwgeomAlgorithmProvider.LWGEOM_PATH_SETTING, "Path to liblwgeom", ""))
+        ProcessingConfig.addSetting(Setting("LWGEOM algorithms", LwgeomAlgorithmProvider.LWGEOM_PATH_SETTING, "Path to liblwgeom", self.lwgeomPath()))
         #To get the parameter of a setting parameter, use ProcessingConfig.getSetting(name_of_parameter)
 
     def unload(self):
-        '''remove settings, so they do not appear anymore when the plugin 
+        '''remove settings, so they do not appear anymore when the plugin
         is unloaded'''
         AlgorithmProvider.unload(self)
         ProcessingConfig.removeSetting( LwgeomAlgorithmProvider.LWGEOM_PATH_SETTING )
@@ -65,7 +68,26 @@ class LwgeomAlgorithmProvider(AlgorithmProvider):
         '''return the default icon'''
         return AlgorithmProvider.getIcon(self)
 
-
     def _loadAlgorithms(self):
         '''list of algorithms in self.algs.'''
         self.algs = self.alglist
+
+    def lwgeomPath(self):
+        folder = self.findLwgeomPath()
+        if folder is None:
+            folder = ProcessingConfig.getSetting(LwgeomAlgorithmProvider.LWGEOM_PATH_SETTING)
+        return folder
+
+    def findLwgeomPath(self):
+        folder = None
+
+        if isMac():
+            pass
+        elif isWindows():
+            pass
+        else:
+            testFolders = ["/usr/lib", "/usr/lib64/", "/usr/bin"]
+            for f in testFolders:
+                if os.path.exists(os.path.join(f, "liblwgeom.so")):
+                    return f
+        return folder
