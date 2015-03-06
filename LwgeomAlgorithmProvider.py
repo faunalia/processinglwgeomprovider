@@ -84,7 +84,9 @@ class LwgeomAlgorithmProvider(AlgorithmProvider):
         if isMac():
             pass
         elif isWindows():
-            pass
+            testfolder = os.path.join(os.path.split(os.path.dirname(QgsApplication.prefixPath()))[0], 'bin')
+            if os.path.exists(os.path.join(testfolder, 'lwgeom.dll')):
+                folder = testfolder
         else:
             testFolders = ["/usr/lib", "/usr/lib64/", "/usr/bin"]
             for f in testFolders:
