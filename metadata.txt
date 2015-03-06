@@ -23,7 +23,7 @@
 name=Processing LWGEOM Provider
 description=Expose liblwgeom functions to Processing.
 
-version=0.4.4
+version=0.4.5
 qgisMinimumVersion=2.0
 
 category=Plugin
@@ -35,7 +35,9 @@ email=info@faunalia.eu
 
 ; start of optional metadata
 
-changelog=0.4.4
+changelog=0.4.5
+	autodetect lwgeom path (Thanks Alex Bruy)
+	0.4.4
 	Bugfix due to Processing refactoring - http://hub.qgis.org/issues/10953
 	0.4.3
 	added offline help get from http://postgis.net/docs
@@ -54,7 +56,7 @@ changelog=0.4.4
 tags=processing, liblwgeom
 
 homepage=http://www.faunalia.eu/
-tracker=http://hub.qgis.org/projects/processinglwgeomprovider
+tracker=https://github.com/faunalia/processinglwgeomprovider
 repository=https://github.com/faunalia/processinglwgeomprovider
 
 ; path to a icon within the plugin folder
